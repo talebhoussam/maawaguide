@@ -1,0 +1,3202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>دليل مأوى الشامل للمالك — ustal.dev</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06101c;
+            --bg2: #0b1828;
+            --bg3: #101f35;
+            --bg4: #142540;
+            --c: #00c8e8;
+            --c2: #0099bb;
+            --c3: rgba(0, 200, 232, .14);
+            --am: #f5a020;
+            --am2: #ffc050;
+            --gr: #00d97e;
+            --rd: #ff4d4d;
+            --pu: #8b6cf0;
+            --bd: rgba(255, 255, 255, .07);
+            --bc: rgba(0, 200, 232, .22);
+            --tx: #ddeeff;
+            --tx2: #6a92b8;
+            --tx3: #304860;
+            --mo: 'JetBrains Mono', monospace;
+            --ku: 'Noto Kufi Arabic', sans-serif;
+            --na: 'Noto Naskh Arabic', serif;
+            --r: 12px;
+            --rs: 8px;
+            --sw: 255px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--ku);
+            background: var(--bg);
+            color: var(--tx);
+            overflow-x: hidden;
+            line-height: 1.7
+        }
+
+        ::selection {
+            background: var(--c2);
+            color: #000
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg2)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--bc);
+            border-radius: 4px
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        /* grid bg */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(0, 200, 232, .02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 200, 232, .02) 1px, transparent 1px);
+            background-size: 56px 56px
+        }
+
+        /* ambient */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: radial-gradient(ellipse 800px 500px at 85% 0%, rgba(0, 153, 187, .09), transparent),
+                radial-gradient(ellipse 500px 400px at 0% 90%, rgba(139, 108, 240, .07), transparent)
+        }
+
+        /* progress */
+        #pgbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            z-index: 999;
+            background: linear-gradient(90deg, var(--c), var(--am));
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: transform .08s linear
+        }
+
+        /* ═══════════════ LAYOUT ═══════════════ */
+        .wrap {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1
+        }
+
+        /* ── Sidebar ── */
+        .sb {
+            width: var(--sw);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background: var(--bg2);
+            border-left: 1px solid var(--bd);
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: none
+        }
+
+        .sb::-webkit-scrollbar {
+            display: none
+        }
+
+        .sb-top {
+            padding: 20px 18px 14px;
+            border-bottom: 1px solid var(--bd);
+            flex-shrink: 0
+        }
+
+        .sb-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px
+        }
+
+        .sb-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--c2), #003050);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 14px rgba(0, 200, 232, .3)
+        }
+
+        .sb-name {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--tx)
+        }
+
+        .sb-sub {
+            font-size: .6rem;
+            color: var(--tx3);
+            font-family: var(--mo);
+            margin-top: 1px
+        }
+
+        .sb-ver {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 7px;
+            font-size: .58rem;
+            font-family: var(--mo);
+            color: var(--c);
+            background: var(--c3);
+            border: 1px solid var(--bc);
+            padding: 2px 8px;
+            border-radius: 50px
+        }
+
+        .sb-vdot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gr);
+            animation: blink 1.6s infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .2
+            }
+        }
+
+        .sb-nav {
+            padding: 10px 0;
+            flex: 1
+        }
+
+        .sb-grp {
+            margin-bottom: 2px
+        }
+
+        .sb-glabel {
+            font-size: .55rem;
+            font-weight: 700;
+            color: var(--tx3);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            padding: 9px 18px 3px;
+            font-family: var(--mo)
+        }
+
+        .sb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 18px;
+            font-size: .77rem;
+            color: var(--tx2);
+            cursor: pointer;
+            transition: all .17s;
+            border-right: 2px solid transparent;
+            user-select: none
+        }
+
+        .sb-item:hover {
+            color: var(--tx);
+            background: rgba(255, 255, 255, .03)
+        }
+
+        .sb-item.on {
+            color: var(--c);
+            border-right-color: var(--c);
+            background: var(--c3);
+            font-weight: 600
+        }
+
+        .sb-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--tx3);
+            flex-shrink: 0;
+            transition: all .2s
+        }
+
+        .sb-item.on .sb-dot {
+            background: var(--c);
+            box-shadow: 0 0 5px var(--c)
+        }
+
+        .sb-foot {
+            padding: 12px 16px;
+            border-top: 1px solid var(--bd);
+            flex-shrink: 0;
+            font-size: .6rem;
+            font-family: var(--mo);
+            color: var(--tx3);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .sb-foot a {
+            color: var(--am);
+            transition: color .2s
+        }
+
+        .sb-foot a:hover {
+            color: var(--am2)
+        }
+
+        @media(max-width:1000px) {
+            .sb {
+                display: none
+            }
+        }
+
+        /* ── Main ── */
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding-bottom: 80px
+        }
+
+        /* ═══════════════ HERO ═══════════════ */
+        .hero {
+            padding: 56px 52px 52px;
+            border-bottom: 1px solid var(--bd);
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 200, 232, .05), transparent 55%);
+            pointer-events: none
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .67rem;
+            font-family: var(--mo);
+            color: var(--c);
+            background: var(--c3);
+            border: 1px solid var(--bc);
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+            letter-spacing: .08em;
+            text-transform: uppercase
+        }
+
+        .hero-tdot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--c);
+            animation: blink 1.5s infinite
+        }
+
+        .hero-h1 {
+            font-size: clamp(1.9rem, 4vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -.025em;
+            margin-bottom: 14px
+        }
+
+        .hero-h1 .hl {
+            background: linear-gradient(90deg, var(--c), var(--c2) 50%, var(--am));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .hero-p {
+            font-size: .95rem;
+            color: var(--tx2);
+            max-width: 640px;
+            font-family: var(--na);
+            line-height: 1.95;
+            margin-bottom: 26px
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap
+        }
+
+        .hm {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .7rem;
+            font-family: var(--mo);
+            color: var(--tx2)
+        }
+
+        .hm-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%
+        }
+
+        .hm-gr .hm-dot {
+            background: var(--gr);
+            box-shadow: 0 0 7px var(--gr)
+        }
+
+        .hm-am .hm-dot {
+            background: var(--am)
+        }
+
+        .hm-cy .hm-dot {
+            background: var(--c)
+        }
+
+        /* ═══════════════ SECTION ═══════════════ */
+        .sec {
+            padding: 44px 52px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .sec:last-child {
+            border-bottom: none
+        }
+
+        .sec-hd {
+            margin-bottom: 32px
+        }
+
+        .sec-num {
+            font-size: .6rem;
+            font-family: var(--mo);
+            color: var(--tx3);
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .sec-h2 {
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -.02em;
+            margin-bottom: 10px
+        }
+
+        .sec-h2 .c {
+            color: var(--c)
+        }
+
+        .sec-h2 .a {
+            color: var(--am)
+        }
+
+        .sec-p {
+            font-size: .88rem;
+            color: var(--tx2);
+            max-width: 600px;
+            font-family: var(--na);
+            line-height: 1.9
+        }
+
+        .divline {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--bc) 30%, var(--bc) 70%, transparent)
+        }
+
+        /* sub heading */
+        .sub-h {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .sub-ico {
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .8rem;
+            flex-shrink: 0
+        }
+
+        /* ═══════════════ GRID ═══════════════ */
+        .g2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px
+        }
+
+        .g3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px
+        }
+
+        .g4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px
+        }
+
+        @media(max-width:780px) {
+
+            .g2,
+            .g3,
+            .g4 {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:900px) {
+            .g4 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        /* ═══════════════ CARD ═══════════════ */
+        .card {
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 18px;
+            transition: all .2s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(255, 255, 255, .02), transparent)
+        }
+
+        .card:hover {
+            border-color: var(--bc);
+            box-shadow: 0 4px 22px rgba(0, 200, 232, .08);
+            transform: translateY(-2px)
+        }
+
+        .ci {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            flex-shrink: 0
+        }
+
+        .ct {
+            font-size: .86rem;
+            font-weight: 700;
+            margin-bottom: 5px
+        }
+
+        .cb {
+            font-size: .79rem;
+            color: var(--tx2);
+            line-height: 1.78;
+            font-family: var(--na)
+        }
+
+        /* ═══════════════ STAT BAR ═══════════════ */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px
+        }
+
+        @media(max-width:680px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .sc {
+            padding: 16px 14px;
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            text-align: center;
+            transition: all .2s;
+            cursor: default
+        }
+
+        .sc:hover {
+            border-color: var(--bc);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 200, 232, .08)
+        }
+
+        .sv {
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: var(--mo);
+            background: linear-gradient(135deg, var(--c), var(--am));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px
+        }
+
+        .sl {
+            font-size: .68rem;
+            color: var(--tx3)
+        }
+
+        /* ═══════════════ FEATURE ROW ═══════════════ */
+        .frow {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 13px 16px;
+            border-radius: var(--r);
+            background: var(--bg2);
+            border: 1px solid var(--bd);
+            transition: all .18s;
+            margin-bottom: 9px
+        }
+
+        .frow:hover {
+            border-color: var(--bc);
+            background: var(--bg3)
+        }
+
+        .fi {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            flex-shrink: 0
+        }
+
+        .fb {
+            flex: 1
+        }
+
+        .ft {
+            font-size: .84rem;
+            font-weight: 700;
+            margin-bottom: 3px
+        }
+
+        .fd {
+            font-size: .78rem;
+            color: var(--tx2);
+            line-height: 1.75;
+            font-family: var(--na)
+        }
+
+        /* ═══════════════ STEPS ═══════════════ */
+        .steps {
+            position: relative;
+            padding-right: 18px
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            right: 8px;
+            top: 18px;
+            bottom: 18px;
+            width: 1.5px;
+            background: linear-gradient(to bottom, var(--c2), transparent)
+        }
+
+        .step {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 26px
+        }
+
+        .step:last-child {
+            margin-bottom: 0
+        }
+
+        .sn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            z-index: 1;
+            background: linear-gradient(135deg, var(--c2), #003050);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .78rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 14px rgba(0, 200, 232, .35);
+            font-family: var(--mo)
+        }
+
+        .sb2 {
+            padding-top: 6px;
+            flex: 1
+        }
+
+        .st2 {
+            font-size: .86rem;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .sd {
+            font-size: .79rem;
+            color: var(--tx2);
+            line-height: 1.74;
+            font-family: var(--na)
+        }
+
+        /* ═══════════════ ACCORDION ═══════════════ */
+        .acc {
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            overflow: hidden;
+            margin-bottom: 9px;
+            transition: border-color .2s
+        }
+
+        .acc:hover {
+            border-color: var(--bc)
+        }
+
+        .acc.open {
+            border-color: var(--bc)
+        }
+
+        .acc-hd {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 17px;
+            cursor: pointer;
+            user-select: none;
+            background: var(--bg2);
+            transition: background .17s
+        }
+
+        .acc.open .acc-hd {
+            background: var(--bg3)
+        }
+
+        .acc-ico {
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            width: 22px;
+            text-align: center
+        }
+
+        .acc-tit {
+            flex: 1;
+            font-size: .87rem;
+            font-weight: 700
+        }
+
+        .acc-role {
+            flex-shrink: 0
+        }
+
+        .acc-arr {
+            font-size: .62rem;
+            color: var(--c);
+            flex-shrink: 0;
+            transition: transform .3s
+        }
+
+        .acc.open .acc-arr {
+            transform: rotate(180deg)
+        }
+
+        .acc-bd {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s cubic-bezier(.4, 0, .2, 1);
+            background: var(--bg3)
+        }
+
+        .acc.open .acc-bd {
+            max-height: 2000px
+        }
+
+        .acc-ct {
+            padding: 16px 18px;
+            font-size: .81rem;
+            color: var(--tx2);
+            font-family: var(--na);
+            line-height: 1.82
+        }
+
+        .asteps {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            margin-top: 13px
+        }
+
+        .astep {
+            display: flex;
+            gap: 11px;
+            padding: 11px 13px;
+            background: var(--bg2);
+            border-radius: var(--rs);
+            border: 1px solid var(--bd)
+        }
+
+        .asn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--c2), #003050);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .62rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            font-family: var(--mo)
+        }
+
+        .ast {
+            font-size: .79rem;
+            color: var(--tx2);
+            line-height: 1.66;
+            font-family: var(--na)
+        }
+
+        .ast strong {
+            color: var(--tx);
+            font-family: var(--ku)
+        }
+
+        /* ═══════════════ TAGS ═══════════════ */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 9px;
+            border-radius: 50px;
+            font-size: .65rem;
+            font-weight: 700;
+            font-family: var(--mo)
+        }
+
+        .tc {
+            background: rgba(0, 200, 232, .1);
+            color: var(--c);
+            border: 1px solid rgba(0, 200, 232, .25)
+        }
+
+        .ta {
+            background: rgba(245, 160, 32, .1);
+            color: var(--am2);
+            border: 1px solid rgba(245, 160, 32, .25)
+        }
+
+        .tg {
+            background: rgba(0, 217, 126, .09);
+            color: #30e898;
+            border: 1px solid rgba(0, 217, 126, .2)
+        }
+
+        .tr {
+            background: rgba(255, 77, 77, .08);
+            color: #ff8080;
+            border: 1px solid rgba(255, 77, 77, .2)
+        }
+
+        .tp {
+            background: rgba(139, 108, 240, .1);
+            color: #b09aff;
+            border: 1px solid rgba(139, 108, 240, .25)
+        }
+
+        .tz {
+            background: rgba(255, 255, 255, .05);
+            color: var(--tx2);
+            border: 1px solid var(--bd)
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px
+        }
+
+        /* mono code label */
+        .ml {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: rgba(0, 200, 232, .08);
+            color: var(--c);
+            font-family: var(--mo);
+            font-size: .7rem;
+            border: 1px solid rgba(0, 200, 232, .15)
+        }
+
+        .sp {
+            font-family: var(--mo);
+            font-size: .7rem;
+            color: var(--c);
+            background: rgba(0, 200, 232, .06);
+            border: 1px solid rgba(0, 200, 232, .14);
+            padding: 2px 9px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        /* ═══════════════ INFO BOX ═══════════════ */
+        .ibox {
+            background: linear-gradient(135deg, rgba(0, 200, 232, .07), rgba(0, 50, 80, .12));
+            border: 1px solid var(--bc);
+            border-radius: var(--r);
+            padding: 18px 20px;
+            margin-top: 14px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .ibox::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--c);
+            border-radius: 0 var(--r) var(--r) 0
+        }
+
+        .ibox.warn {
+            background: linear-gradient(135deg, rgba(245, 160, 32, .07), rgba(100, 50, 0, .1));
+            border-color: rgba(245, 160, 32, .25)
+        }
+
+        .ibox.warn::before {
+            background: var(--am)
+        }
+
+        .ibox.ok {
+            background: linear-gradient(135deg, rgba(0, 217, 126, .06), rgba(0, 70, 40, .1));
+            border-color: rgba(0, 217, 126, .2)
+        }
+
+        .ibox.ok::before {
+            background: var(--gr)
+        }
+
+        .ib-h {
+            font-size: .81rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .ib-p {
+            font-size: .79rem;
+            color: var(--tx2);
+            line-height: 1.82;
+            font-family: var(--na)
+        }
+
+        .ib-p strong {
+            color: var(--tx)
+        }
+
+        /* ═══════════════ MOCKUP ═══════════════ */
+        .mock {
+            background: var(--bg2);
+            border-radius: 13px;
+            border: 1px solid var(--bd);
+            overflow: hidden;
+            box-shadow: 0 14px 50px rgba(0, 0, 0, .5)
+        }
+
+        .mb {
+            height: 34px;
+            background: var(--bg3);
+            display: flex;
+            align-items: center;
+            padding: 0 13px;
+            gap: 7px;
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .md {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%
+        }
+
+        .mdr {
+            background: #ff5252
+        }
+
+        .mdy {
+            background: #f5a020
+        }
+
+        .mdg {
+            background: #00d97e
+        }
+
+        .murl {
+            margin-right: auto;
+            font-size: .6rem;
+            font-family: var(--mo);
+            color: var(--tx3);
+            background: var(--bg4);
+            padding: 2px 9px;
+            border-radius: 50px
+        }
+
+        .mc {
+            padding: 13px
+        }
+
+        .msr {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 9px
+        }
+
+        .ms {
+            padding: 8px 6px;
+            text-align: center;
+            background: var(--bg3);
+            border-radius: var(--rs);
+            border: 1px solid var(--bd)
+        }
+
+        .msv {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--c);
+            font-family: var(--mo)
+        }
+
+        .msl {
+            font-size: .54rem;
+            color: var(--tx3);
+            margin-top: 1px
+        }
+
+        .mr {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg3);
+            border: 1px solid var(--bd);
+            border-radius: var(--rs);
+            margin-bottom: 6px;
+            transition: border-color .2s
+        }
+
+        .mr:hover {
+            border-color: var(--bc)
+        }
+
+        .mav {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .55rem;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0
+        }
+
+        .mn {
+            font-size: .71rem;
+            font-weight: 600
+        }
+
+        .ms2 {
+            font-size: .58rem;
+            color: var(--tx3)
+        }
+
+        .mbdg {
+            margin-right: auto;
+            padding: 2px 7px;
+            border-radius: 50px;
+            font-size: .56rem;
+            font-weight: 700;
+            font-family: var(--mo)
+        }
+
+        .bg {
+            background: rgba(0, 217, 126, .12);
+            color: #30e898
+        }
+
+        .bb {
+            background: rgba(0, 200, 232, .12);
+            color: var(--c)
+        }
+
+        .ba {
+            background: rgba(245, 160, 32, .1);
+            color: var(--am2)
+        }
+
+        .bred {
+            background: rgba(255, 77, 77, .1);
+            color: #ff8080
+        }
+
+        /* ═══════════════ TABLE ═══════════════ */
+        .tbl-wr {
+            overflow-x: auto;
+            border-radius: var(--r);
+            border: 1px solid var(--bd)
+        }
+
+        .tbl {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .tbl th {
+            padding: 10px 15px;
+            text-align: right;
+            font-size: .7rem;
+            font-weight: 700;
+            color: var(--tx2);
+            background: var(--bg2);
+            border-bottom: 1px solid var(--bd)
+        }
+
+        .tbl td {
+            padding: 10px 15px;
+            font-size: .79rem;
+            color: var(--tx2);
+            border-bottom: 1px solid var(--bd);
+            font-family: var(--na);
+            vertical-align: middle
+        }
+
+        .tbl td:first-child {
+            font-weight: 700;
+            color: var(--tx);
+            font-family: var(--ku)
+        }
+
+        .tbl tr:last-child td {
+            border-bottom: none
+        }
+
+        .tbl tr:hover td {
+            background: rgba(255, 255, 255, .02)
+        }
+
+        /* ═══════════════ ROLES ═══════════════ */
+        .rgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px
+        }
+
+        @media(max-width:680px) {
+            .rgrid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .rc {
+            padding: 20px 18px;
+            border-radius: var(--r);
+            border: 1px solid var(--bd);
+            background: var(--bg2);
+            position: relative;
+            overflow: hidden
+        }
+
+        .rc::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: .065;
+            pointer-events: none
+        }
+
+        .rsa::before {
+            background: linear-gradient(135deg, var(--pu), transparent)
+        }
+
+        .rmg::before {
+            background: linear-gradient(135deg, var(--c), transparent)
+        }
+
+        .rop::before {
+            background: linear-gradient(135deg, var(--am), transparent)
+        }
+
+        .ricon {
+            font-size: 1.9rem;
+            margin-bottom: 11px
+        }
+
+        .rname {
+            font-size: .92rem;
+            font-weight: 800;
+            margin-bottom: 9px
+        }
+
+        .rl {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .rl li {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            font-size: .76rem;
+            color: var(--tx2);
+            font-family: var(--na);
+            line-height: 1.55
+        }
+
+        .rl li::before {
+            content: "›";
+            color: var(--c);
+            flex-shrink: 0;
+            font-size: .8rem;
+            margin-top: -1px
+        }
+
+        /* ═══════════════ FAQ ═══════════════ */
+        .faq {
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: border-color .2s
+        }
+
+        .faq:hover {
+            border-color: var(--bc)
+        }
+
+        .fq {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 13px 17px;
+            cursor: pointer;
+            user-select: none;
+            font-size: .84rem;
+            font-weight: 700;
+            background: var(--bg2);
+            transition: background .17s
+        }
+
+        .fq:hover {
+            background: var(--bg3)
+        }
+
+        .fq.on {
+            color: var(--c);
+            background: rgba(0, 200, 232, .06)
+        }
+
+        .farr {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            border: 1px solid var(--bc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .58rem;
+            color: var(--c);
+            transition: transform .3s;
+            flex-shrink: 0
+        }
+
+        .fq.on .farr {
+            transform: rotate(180deg);
+            background: rgba(0, 200, 232, .1)
+        }
+
+        .fa {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s cubic-bezier(.4, 0, .2, 1);
+            font-size: .8rem;
+            color: var(--tx2);
+            font-family: var(--na);
+            line-height: 1.88;
+            background: var(--bg3)
+        }
+
+        .fa.on {
+            max-height: 500px;
+            padding: 0 17px 16px
+        }
+
+        /* ═══════════════ FOOTER ═══════════════ */
+        .foot {
+            padding: 28px 52px;
+            border-top: 1px solid var(--bd);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px
+        }
+
+        .foot-l {
+            font-size: .72rem;
+            color: var(--tx3);
+            font-family: var(--mo)
+        }
+
+        .foot-r {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .72rem;
+            font-family: var(--mo);
+            color: var(--tx2);
+            padding: 6px 14px;
+            border-radius: 50px;
+            border: 1px solid var(--bd);
+            transition: all .22s
+        }
+
+        .foot-r:hover {
+            border-color: var(--am);
+            color: var(--am);
+            box-shadow: 0 3px 14px rgba(245, 160, 32, .18)
+        }
+
+        .foot-r span {
+            color: var(--am)
+        }
+
+        /* responsive */
+        @media(max-width:680px) {
+
+            .hero,
+            .sec,
+            .foot {
+                padding: 28px 18px
+            }
+        }
+
+        /* reveal */
+        .rv {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .55s ease, transform .55s ease
+        }
+
+        .rv.on {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pgbar"></div>
+
+    <div class="wrap">
+
+        <!-- ══════════ SIDEBAR ══════════ -->
+        <aside class="sb">
+            <div class="sb-top">
+                <div class="sb-brand">
+                    <div class="sb-icon">
+                        <svg width="17" height="15" viewBox="0 0 60 55" fill="none">
+                            <path d="M30 5L55 27H50V50H35V36H25V50H10V27H5Z" stroke="#00c8e8" stroke-width="3"
+                                fill="none" stroke-linejoin="round" />
+                            <path d="M18 42V22L30 34L42 22V42" stroke="#00c8e8" stroke-width="3" fill="none"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <span class="sb-name">مأوى</span>
+                </div>
+                <div class="sb-sub">دليل المالك الشامل</div>
+                <div class="sb-ver">
+                    <div class="sb-vdot"></div>v2.0 — 2026
+                </div>
+            </div>
+
+            <nav class="sb-nav">
+                <div class="sb-grp">
+                    <div class="sb-glabel">المقدمة</div>
+                    <div class="sb-item on" onclick="go('s0')">
+                        <div class="sb-dot"></div>نظرة عامة على المشروع
+                    </div>
+                    <div class="sb-item" onclick="go('s1')">
+                        <div class="sb-dot"></div>ما تم تطويره
+                    </div>
+                </div>
+                <div class="sb-grp">
+                    <div class="sb-glabel">تطبيق مأوى — المستخدم</div>
+                    <div class="sb-item" onclick="go('s2')">
+                        <div class="sb-dot"></div>تسجيل الدخول والحساب
+                    </div>
+                    <div class="sb-item" onclick="go('s3')">
+                        <div class="sb-dot"></div>الشاشات الـ 17
+                    </div>
+                    <div class="sb-item" onclick="go('s4')">
+                        <div class="sb-dot"></div>الحجز والمهام والدفع
+                    </div>
+                    <div class="sb-item" onclick="go('s5')">
+                        <div class="sb-dot"></div>وضع الحرفي
+                    </div>
+                    <div class="sb-item" onclick="go('s6')">
+                        <div class="sb-dot"></div>المحفظة والـ Coins
+                    </div>
+                    <div class="sb-item" onclick="go('s7')">
+                        <div class="sb-dot"></div>اللغات والإعدادات
+                    </div>
+                </div>
+                <div class="sb-grp">
+                    <div class="sb-glabel">لوحة الإدارة — Admin</div>
+                    <div class="sb-item" onclick="go('s8')">
+                        <div class="sb-dot"></div>الدخول والأدوار
+                    </div>
+                    <div class="sb-item" onclick="go('s9')">
+                        <div class="sb-dot"></div>كل صفحة وكيف تستخدمها
+                    </div>
+                    <div class="sb-item" onclick="go('s10')">
+                        <div class="sb-dot"></div>النوافذ التفاعلية (17)
+                    </div>
+                    <div class="sb-item" onclick="go('s11')">
+                        <div class="sb-dot"></div>ميزات الواجهة
+                    </div>
+                </div>
+                <div class="sb-grp">
+                    <div class="sb-glabel">الخاتمة</div>
+                    <div class="sb-item" onclick="go('s12')">
+                        <div class="sb-dot"></div>أسئلة شائعة
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sb-foot">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                </svg>
+                Developed by <a href="https://ustal.dev" target="_blank">ustal.dev</a>
+            </div>
+        </aside>
+
+        <!-- ══════════ MAIN ══════════ -->
+        <main class="main">
+
+            <!-- ── HERO ── -->
+            <div class="hero" id="s0">
+                <div class="hero-tag">
+                    <div class="hero-tdot"></div>وثيقة تسليم المشروع — Maawa Platform v2.0
+                </div>
+                <h1 class="hero-h1">دليل منصة <span class="hl">مأوى</span><br>الشامل للمالك</h1>
+                <p class="hero-p">
+                    هذه الوثيقة تشرح بالكامل ما طوّره فريق <strong style="color:var(--am)">ustal.dev</strong> لمشروع
+                    مأوى —
+                    من تطبيق المستخدم الذي يبحث فيه العملاء عن الحرفيين، حتى لوحة الإدارة التي تُدير بها
+                    المنصة يوميًا. كل شاشة، كل زر، كل ميزة — شرح واضح وعملي.
+                </p>
+                <div class="hero-meta">
+                    <div class="hm hm-gr">
+                        <div class="hm-dot"></div>17 شاشة مستخدم · 12 فئة
+                    </div>
+                    <div class="hm hm-am">
+                        <div class="hm-dot"></div>19 صفحة إدارة · 3 أدوار
+                    </div>
+                    <div class="hm hm-cy">
+                        <div class="hm-dot"></div>3 لغات · 287 مفتاح ترجمة
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 00 — ما تم تطويره
+══════════════════════════════════ -->
+            <div class="sec rv" id="s1">
+                <div class="sec-hd">
+                    <div class="sec-num">00 — نظرة فنية عامة</div>
+                    <h2 class="sec-h2">ما الذي <span class="c">طوّرناه</span> لك؟</h2>
+                    <p class="sec-p">مشروع مأوى يتكوّن من ملفّين HTML مستقلّين — كل ملف كامل بذاته، يعمل في أي متصفح
+                        مباشرةً بدون تثبيت أو خادم.</p>
+                </div>
+
+                <div class="stats">
+                    <div class="sc">
+                        <div class="sv">17</div>
+                        <div class="sl">شاشة مستخدم</div>
+                    </div>
+                    <div class="sc">
+                        <div class="sv">19</div>
+                        <div class="sl">صفحة إدارة</div>
+                    </div>
+                    <div class="sc">
+                        <div class="sv">3</div>
+                        <div class="sl">لغات كاملة</div>
+                    </div>
+                    <div class="sc">
+                        <div class="sv">287</div>
+                        <div class="sl">مفتاح ترجمة</div>
+                    </div>
+                </div>
+
+                <div class="g2">
+                    <div class="card">
+                        <div class="ci" style="background:rgba(0,200,232,.1)">📱</div>
+                        <div class="ct"> — تطبيق المستخدم</div>
+                        <div class="cb">التطبيق الأمامي للعملاء والحرفيين. يشمل: تسجيل الدخول، استكشاف الحرفيين، الحجز،
+                            المهام، المحفظة، الـ Reels، الدردشة، الإشعارات، الإعدادات، ووضع الحرفي بالكامل. يعمل بثلاث
+                            لغات.</div>
+                    </div>
+                    <div class="card">
+                        <div class="ci" style="background:rgba(139,108,240,.1)">🖥️</div>
+                        <div class="ct"> — لوحة الإدارة</div>
+                        <div class="cb">لوحة التحكم الداخلية لفريقك. تشمل: إدارة المستخدمين، التحقق من الهوية NIN،
+                            المهام، المالية والـ SafePay، النزاعات، الإشراف على المحتوى، الإشهار، الإحصائيات، والإعدادات
+                            الكاملة. نظام صلاحيات ثلاثي.</div>
+                    </div>
+                </div>
+
+                <div class="ibox" style="margin-top:13px">
+                    <div class="ib-h">⚡ التقنيات المُستخدمة</div>
+                    <div class="ib-p">
+                        كلا الملفّين مبنيان بـ <strong>HTML5 + CSS3 + JavaScript خالص</strong> — لا مكتبات خارجية، لا
+                        إطار عمل، لا خادم.
+                        يُفتحان مباشرةً في المتصفح. نظام الترجمة الثلاثي مدمج في الكود.
+                        الإعلانات تُزامَن بين الملفّين عبر <strong>localStorage</strong> — أنشئ إعلانًا في Admin وسيظهر
+                        في تطبيق المستخدم تلقائيًا.
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 01 — تسجيل الدخول
+══════════════════════════════════ -->
+            <div class="sec rv" id="s2">
+                <div class="sec-hd">
+                    <div class="sec-num">01 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">تسجيل الدخول <span class="c">والحساب</span></h2>
+                    <p class="sec-p">كيف يدخل المستخدم للمنصة وينشئ حسابه الجديد.</p>
+                </div>
+
+                <div class="g2">
+                    <div>
+                        <div class="sub-h">
+                            <div class="sub-ico" style="background:rgba(0,200,232,.1)">🔐</div>تسجيل الدخول
+                        </div>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="sn">1</div>
+                                <div class="sb2">
+                                    <div class="st2">اختيار الدور</div>
+                                    <div class="sd">المستخدم يختار في البداية: <strong
+                                            style="color:var(--tx)">عميل</strong> أم <strong
+                                            style="color:var(--tx)">حرفي</strong>. هذا يُحدّد ما سيراه بعد الدخول.</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">2</div>
+                                <div class="sb2">
+                                    <div class="st2">البيانات</div>
+                                    <div class="sd">رقم الهاتف أو البريد الإلكتروني + كلمة المرور. يوجد زر إظهار/إخفاء
+                                        كلمة المرور.</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">3</div>
+                                <div class="sb2">
+                                    <div class="st2">الدخول</div>
+                                    <div class="sd">الضغط على "Se connecter" يُحمّل واجهة المنصة المناسبة للدور المُختار
+                                        فورًا.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="sub-h">
+                            <div class="sub-ico" style="background:rgba(245,160,32,.1)">✍️</div>إنشاء حساب جديد — 3
+                            خطوات
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,200,232,.09)">1️⃣</div>
+                            <div class="fb">
+                                <div class="ft">بيانات الحساب</div>
+                                <div class="fd">الاسم + رقم الهاتف + كلمة المرور + اختيار دور (عميل/حرفي) + كود الإحالة
+                                    الاختياري — الكود يُكافئ الطرفين بـ Coins.</div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,200,232,.09)">2️⃣</div>
+                            <div class="fb">
+                                <div class="ft">التحقق OTP</div>
+                                <div class="fd">رمز 4 أرقام يُرسَل عبر SMS. يُدخله المستخدم للتحقق من الهاتف . يوجد زر
+                                    إعادة الإرسال.</div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,200,232,.09)">3️⃣</div>
+                            <div class="fb">
+                                <div class="ft">اختيار الولاية</div>
+                                <div class="fd">يختار المستخدم ولايته لتحديد الحرفيين المتاحين في منطقته. بعدها يُكمل
+                                    ويُصبح الحساب نشطًا.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 02 — الشاشات الـ 17
+══════════════════════════════════ -->
+            <div class="sec rv" id="s3">
+                <div class="sec-hd">
+                    <div class="sec-num">02 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">الشاشات الـ <span class="c">17</span> — كل شاشة وما تفعله</h2>
+                    <p class="sec-p">التنقل بين الشاشات عبر الدالة . كل شاشة لها معرّف فريد.</p>
+                </div>
+
+                <!-- شاشات العميل -->
+                <div class="sub-h">
+                    <div class="sub-ico" style="background:rgba(0,200,232,.1)">📲</div>شاشات وضع العميل
+                </div>
+
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,200,232,.09)">🏠</div>
+                    <div class="fb">
+                        <div class="ft">الرئيسية — Feed</div>
+                        <div class="fd">أول شاشة بعد الدخول. تعرض: قصص الحرفيين (Stories)، منشورات Avant/Après، فلتر
+                            تبويب (Pour Vous / Suivis / Tendances / Top Artisans)، وإعلانات مأوى المُزامَنة من لوحة
+                            الإدارة. إعجاب ، متابعة .</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,200,232,.09)">🔍</div>
+                    <div class="fb">
+                        <div class="ft">استكشاف الحرفيين — Explorer</div>
+                        <div class="fd">شاشة البحث الرئيسية. فلتر حسب الولاية والتحقق NIN . عداد نتائج حيّ . بانر Maawa
+                            Tender. كل بطاقة حرفي: اسم، مهنة، تقييم، عدد مهام، حالة، زر حجز.</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,200,232,.09)">🗂️</div>
+                    <div class="fb">
+                        <div class="ft">الفئات والنتائج</div>
+                        <div class="fd">12 فئة مهنية: سباكة (plomb) · كهرباء (elec) · دهان (paint) · ماسونري (macon) ·
+                            نجارة (menu) · بلاط (carrel) · تكييف (clim) · حديد (ferr) · بناء (gros) · بستنة (jard) · قفل
+                            (serr) · تسقيف (toit). الضغط على أي فئة يفتح ويُظهر نتائج مفلترة مع فرز .</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,200,232,.09)">👤</div>
+                    <div class="fb">
+                        <div class="ft">ملف الحرفي — Profil</div>
+                        <div class="fd">الملف الكامل: صورة، اسم، مهنة، ولاية، تقييم، الشارات (موثّق NIN، Expert)،
+                            إحصائيات (مهام/تقييمات)، Portfolio، تعليقات العملاء. زر الحجز يفتح ، زر المتابعة ، زر
+                            الاتصال .</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(139,108,240,.1)">📹</div>
+                    <div class="fb">
+                        <div class="ft">Reels — أعمال الحرفيين</div>
+                        <div class="fd">6 بطاقات فيديو لأعمال الحرفيين. كل بطاقة: مشاهدات، إعجاب، تعليق، حجز مباشر.
+                            الضغط يفتح مشغّل Reel كامل . الحرفيون يمكنهم Boost الـ Reels بـ Coins.</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,217,126,.1)">🤖</div>
+                    <div class="fb">
+                        <div class="ft">تقدير الأسعار الذكي — Smart Quote</div>
+                        <div class="fd">المستخدم يصف المشكلة ويختار الفئة والمساحة. زر "Estimer avec l'IA GPT-4o" يُشغّل
+                            — محاكاة نموذج ذكاء اصطناعي يُعطي تقدير التكلفة بالدينار الجزائري + أفضل 3 حرفيين مقترحين.
+                        </div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(245,160,32,.1)">📋</div>
+                    <div class="fb">
+                        <div class="ft">مهامي — Missions</div>
+                        <div class="fd">سجل جميع المهام (نشطة، مجدولة، مكتملة). لكل مهمة: الحرفي، الخدمة، الوقت، الحالة.
+                            أزرار: تأكيد الاكتمال يُطلق الدفع، إلغاء ، تقييم .</div>
+                    </div>
+                </div>
+                <div class="frow">
+                    <div class="fi" style="background:rgba(0,200,232,.09)">🔖</div>
+                    <div class="fb">
+                        <div class="ft">المحفوظات — Saved</div>
+                        <div class="fd">قائمة الحرفيين والمنشورات المحفوظة. فلتر تبويب: الكل / حرفيون / منشورات / Reels
+                            — . إعادة الحجز بنقرة واحدة.</div>
+                    </div>
+                </div>
+
+                <div class="g3" style="margin-top:10px">
+                    <div class="card">
+                        <div class="ci" style="background:rgba(0,200,232,.09)">💬</div>
+                        <div class="ct">الدردشة</div>
+                        <div class="cb">قائمة المحادثات مع الحرفيين. فتح محادثة ، إرسال رسالة . دعم الصور والنصوص.</div>
+                    </div>
+                    <div class="card">
+                        <div class="ci" style="background:rgba(245,160,32,.1)">🔔</div>
+                        <div class="ct">الإشعارات</div>
+                        <div class="cb">الإشعارات بالأحدث: تأكيد حجز، تقييم جديد، طلب حرفي، تحديث مهمة.</div>
+                    </div>
+                    <div class="card">
+                        <div class="ci" style="background:rgba(139,108,240,.1)">⚙️</div>
+                        <div class="ct">الإعدادات</div>
+                        <div class="cb">6 أقسام: الحساب، المظهر (وضع ليلي )، الإشعارات، الدفع، الدعم، تغيير اللغة .
+                        </div>
+                    </div>
+                </div>
+
+                <!-- شاشات الحرفي -->
+                <div class="sub-h" style="margin-top:28px">
+                    <div class="sub-ico" style="background:rgba(245,160,32,.1)">🔧</div>شاشات وضع الحرفي (يصلها بالضغط
+                    على "Mode Artisan")
+                </div>
+                <div class="g2">
+                    <div class="frow" style="margin-bottom:0">
+                        <div class="fi" style="background:rgba(245,160,32,.1)">📊</div>
+                        <div class="fb">
+                            <div class="ft">لوحة تحكم الحرفي</div>
+                            <div class="fd">إحصائيات الحرفي (مهام، تقييم، Coins)، المهام الجديدة الواردة، وتغيير حالة
+                                التوفر : متاح / مشغول / في مهمة.</div>
+                        </div>
+                    </div>
+                    <div class="frow" style="margin-bottom:0">
+                        <div class="fi" style="background:rgba(245,160,32,.1)">📋</div>
+                        <div class="fb">
+                            <div class="ft">مهام الحرفي</div>
+                            <div class="fd">طلبات الحجز الواردة: قبول / رفض / تفاوض. المهام المقبولة مع زر "إنهاء
+                                المهمة" وعدّاد الوقت .</div>
+                        </div>
+                    </div>
+                    <div class="frow" style="margin-top:9px;margin-bottom:0">
+                        <div class="fi" style="background:rgba(139,108,240,.1)">🎨</div>
+                        <div class="fb">
+                            <div class="ft">Portfolio والـ Reels</div>
+                            <div class="fd">الحرفي يُضيف صور أعماله ويُنشئ Reels. الـ Reels تظهر في شاشة s-reels
+                                للعملاء. Boost بـ Coins لرفع الظهور.</div>
+                        </div>
+                    </div>
+                    <div class="frow" style="margin-top:9px;margin-bottom:0">
+                        <div class="fi" style="background:rgba(0,217,126,.1)">📝</div>
+                        <div class="fb">
+                            <div class="ft">طلب الانضمام</div>
+                            <div class="fd">الحرفي الجديد يملأ النموذج: المهنة، الخبرة، الولايات المغطاة، وثائق NIN.
+                                الطلب يُرسَل لـ Admin عبر .</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 03 — الحجز والمهام
+══════════════════════════════════ -->
+            <div class="sec rv" id="s4">
+                <div class="sec-hd">
+                    <div class="sec-num">03 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">الحجز والمهام <span class="c">والدفع</span></h2>
+                    <p class="sec-p">كيف يتم الحجز من A إلى Z — ونظام SafePay الذي يحمي الطرفين.</p>
+                </div>
+
+                <div class="g2">
+                    <div>
+                        <div class="sub-h">
+                            <div class="sub-ico" style="background:rgba(0,217,126,.1)">📅</div>خطوات الحجز —
+                        </div>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="sn">1</div>
+                                <div class="sb2">
+                                    <div class="st2">فتح النافذة</div>
+                                    <div class="sd">من أي بطاقة حرفي أو ملف شخصي، الضغط على "Réserver" يُشغّل ويفتح
+                                        نافذة الحجز.</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">2</div>
+                                <div class="sb2">
+                                    <div class="st2">نوع الحجز</div>
+                                    <div class="sd">3 خيارات: <span class="tag tc">📅 مجدول</span> <span
+                                            class="tag ta">⚡ عاجل 2h</span> <span class="tag tz">🤝 تفاوضي</span></div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">3</div>
+                                <div class="sb2">
+                                    <div class="st2">التاريخ والوقت</div>
+                                    <div class="sd">تقويم مدمج . اختيار اليوم يُظهر الفترات المتاحة . الانتقال للخطوة
+                                        التالية .</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">4</div>
+                                <div class="sb2">
+                                    <div class="st2">طريقة الدفع</div>
+                                    <div class="sd"> — 3 خيارات: <span class="tag tc">🔒 SafePay</span> <span
+                                            class="tag ta">🪙 Coins</span> <span class="tag tz">💵 نقدًا</span></div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">5</div>
+                                <div class="sb2">
+                                    <div class="st2">التأكيد</div>
+                                    <div class="sd"> يُضيف المهمة لقائمة Missions وينتظر قبول الحرفي.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="sub-h">
+                            <div class="sub-ico" style="background:rgba(0,217,126,.1)">🔒</div>نظام SafePay
+                        </div>
+                        <div class="mock">
+                            <div class="mb">
+                                <div class="md mdr"></div>
+                                <div class="md mdy"></div>
+                                <div class="md mdg"></div>
+                                <div class="murl">مأوى — SafePay</div>
+                            </div>
+                            <div class="mc">
+                                <div class="mr">
+                                    <div class="mav" style="background:rgba(0,217,126,.25);font-size:.8rem">1</div>
+                                    <div>
+                                        <div class="mn">الأموال محجوزة عند تأكيد الحجز</div>
+                                        <div class="ms2">حساب ضمان آمن — لا يصل للحرفي</div>
+                                    </div>
+                                    <div class="mbdg bg">محمي</div>
+                                </div>
+                                <div class="mr">
+                                    <div class="mav" style="background:rgba(0,200,232,.2);font-size:.8rem">2</div>
+                                    <div>
+                                        <div class="mn">الحرفي ينجز العمل</div>
+                                        <div class="ms2">المهمة نشطة مع عدّاد الوقت</div>
+                                    </div>
+                                    <div class="mbdg bb">جارٍ</div>
+                                </div>
+                                <div class="mr">
+                                    <div class="mav" style="background:rgba(245,160,32,.2);font-size:.8rem">3</div>
+                                    <div>
+                                        <div class="mn">العميل يضغط "تأكيد الاكتمال"</div>
+                                        <div class="ms2">completeMission() يُطلق الدفع</div>
+                                    </div>
+                                    <div class="mbdg ba">انتظار</div>
+                                </div>
+                                <div class="mr">
+                                    <div class="mav" style="background:rgba(0,217,126,.25);font-size:.8rem">4</div>
+                                    <div>
+                                        <div class="mn">المبلغ يُحوَّل للحرفي</div>
+                                        <div class="ms2">خلال 24-72 ساعة</div>
+                                    </div>
+                                    <div class="mbdg bg">✓ مكتمل</div>
+                                </div>
+                                <div
+                                    style="margin-top:9px;padding:8px 10px;border-radius:var(--rs);background:rgba(255,77,77,.07);border:1px solid rgba(255,77,77,.18);font-size:.68rem;color:#ff8080">
+                                    ⚠️ رفض الاكتمال → نزاع مفتوح → Admin يتدخل كحكم
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox" style="margin-top:11px">
+                            <div class="ib-h">⭐ نافذة التقييم</div>
+                            <div class="ib-p"> — المستخدم يختار 1-5 نجوم عبر ويكتب تعليقًا. يحفظ التقييم ويؤثر على ترتيب
+                                الحرفي في البحث.</div>
+                        </div>
+                        <div class="ibox warn" style="margin-top:9px">
+                            <div class="ib-h">❌ نافذة الإلغاء</div>
+                            <div class="ib-p"> — المستخدم يختار سبب الإلغاء ويرى رسوم الإلغاء (15% إن قبل الحرفي
+                                مسبقًا). يُنهي الطلب.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-section" style="margin-top:28px">
+                    <div class="sub-h">
+                        <div class="sub-ico" style="background:rgba(245,160,32,.1)">📣</div>Maawa Tender — المناقصة
+                        المتعددة
+                    </div>
+                    <div class="g2">
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(245,160,32,.09)">🚀</div>
+                            <div class="fb">
+                                <div class="ft">كيف تُطلق Tender؟</div>
+                                <div class="fd">من شاشة Explore → "Lancer Maawa Tender" → . النافذة تطلب: نوع الخدمة،
+                                    وصف المشروع، الولاية، الميزانية التقديرية، والمهلة (عاجل/هذا الأسبوع/هذا الشهر/مرن).
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(245,160,32,.09)">✅</div>
+                            <div class="fb">
+                                <div class="ft">بعد الإرسال</div>
+                                <div class="fd"> ينشر الطلب. العميل يتلقى عروضًا من حرفيين متعددين، يقارن ويختار. الدفع
+                                    يمر بـ SafePay بشكل طبيعي.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 04 — وضع الحرفي
+══════════════════════════════════ -->
+            <div class="sec rv" id="s5">
+                <div class="sec-hd">
+                    <div class="sec-num">04 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">وضع <span class="a">الحرفي</span></h2>
+                    <p class="sec-p">المنصة تدعم وضعًا كاملًا للحرفي — لوحة تحكم مدمجة في نفس التطبيق يصلها بزرّ "Mode
+                        Artisan".</p>
+                </div>
+
+                <div class="g2">
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(245,160,32,.1)">📍</div>
+                        <div class="fb">
+                            <div class="ft">حالة التوفر</div>
+                            <div class="fd">الحرفي يُغيّر حالته في أي وقت: <span class="tag tg">🟢 متاح</span> <span
+                                    class="tag ta">🟡 في مهمة</span> <span class="tag tr">🔴 مشغول</span>. الحالة "متاح"
+                                ترفعه في نتائج البحث للعملاء القريبين.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(245,160,32,.1)">🔄</div>
+                        <div class="fb">
+                            <div class="ft">التبديل بين الوضعين</div>
+                            <div class="fd">زرّ "Mode Client / Mode Artisan" في الشريط العلوي يُبدّل الواجهة فورًا دون
+                                الحاجة للخروج وإعادة الدخول.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(0,200,232,.09)">📩</div>
+                        <div class="fb">
+                            <div class="ft">استقبال الطلبات ومعالجتها</div>
+                            <div class="fd">الطلبات الجديدة تظهر في مع تنبيه. لكل طلب: اضغط "Accepter" أو "Refuser" أو
+                                "Négocier". القبول يُشعر العميل ويبدأ العدّاد.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(139,108,240,.1)">🚀</div>
+                        <div class="fb">
+                            <div class="ft">Boost الملف والـ Reels</div>
+                            <div class="fd">من المحفظة، الحرفي يُنفق Coins لرفع ملفه أعلى نتائج البحث (50 MC / 7 أيام)
+                                أو Boost Reel بعينه (20 MC / 24 ساعة).</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 05 — المحفظة
+══════════════════════════════════ -->
+            <div class="sec rv" id="s6">
+                <div class="sec-hd">
+                    <div class="sec-num">05 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">المحفظة <span class="c">والـ Maawa Coins</span></h2>
+                    <p class="sec-p">العملة الداخلية للمنصة وكيف يستخدمها العملاء والحرفيون.</p>
+                </div>
+
+                <div class="g2">
+                    <div class="mock">
+                        <div class="mb">
+                            <div class="md mdr"></div>
+                            <div class="md mdy"></div>
+                            <div class="md mdg"></div>
+                            <div class="murl">🪙 Maawa Coin — Mon Portefeuille</div>
+                        </div>
+                        <div class="mc">
+                            <div class="msr">
+                                <div class="ms">
+                                    <div class="msv">350</div>
+                                    <div class="msl">رصيد MC</div>
+                                </div>
+                                <div class="ms">
+                                    <div class="msv" style="color:var(--am2)">17,500</div>
+                                    <div class="msl">دينار</div>
+                                </div>
+                                <div class="ms">
+                                    <div class="msv" style="color:var(--gr)">+50</div>
+                                    <div class="msl">هذا الشهر</div>
+                                </div>
+                                <div class="ms">
+                                    <div class="msv" style="color:var(--pu)">50</div>
+                                    <div class="msl">DZD/MC</div>
+                                </div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav" style="background:rgba(0,217,126,.2)">⬆</div>
+                                <div>
+                                    <div class="mn">شحن رصيد</div>
+                                    <div class="ms2">عبر Chargily Pay</div>
+                                </div>
+                                <div class="mbdg bg">عملاء</div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav" style="background:rgba(0,200,232,.2)">⬇</div>
+                                <div>
+                                    <div class="mn">سحب أرباح</div>
+                                    <div class="ms2">CCP / تحويل بنكي</div>
+                                </div>
+                                <div class="mbdg bb">حرفيون</div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav" style="background:rgba(139,108,240,.2)">🚀</div>
+                                <div>
+                                    <div class="mn">Boost ملف / Reel</div>
+                                    <div class="ms2">20 — 50 MC</div>
+                                </div>
+                                <div class="mbdg" style="background:rgba(139,108,240,.15);color:#b09aff">إنفاق</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,200,232,.09)">💱</div>
+                            <div class="fb">
+                                <div class="ft">سعر الصرف الثابت</div>
+                                <div class="fd"><strong style="color:var(--tx)">1 Maawa Coin = 50 دينار جزائري</strong>.
+                                    تُغيّر هذه القيمة في إعدادات Admin.</div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,217,126,.1)">⬆️</div>
+                            <div class="fb">
+                                <div class="ft">شحن الرصيد — للعملاء</div>
+                                <div class="fd">العملاء يشحنون عبر Chargily Pay (بطاقة / CCP). يُستخدم للدفع مقابل
+                                    الخدمات بخصومات حصرية.</div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,217,126,.1)">⬇️</div>
+                            <div class="fb">
+                                <div class="ft">سحب الأرباح — للحرفيين</div>
+                                <div class="fd">الحرفيون يطلبون السحب للـ CCP أو التحويل البنكي. الحد الأدنى 5000 دج.
+                                    Admin يوافق من صفحة Finance خلال 3 أيام عمل.</div>
+                            </div>
+                        </div>
+                        <div class="frow">
+                            <div class="fi" style="background:rgba(0,200,232,.09)">🎁</div>
+                            <div class="fb">
+                                <div class="ft">مكافأة الإحالة</div>
+                                <div class="fd">كل مستخدم ينضم بكود إحالة يمنح الطرفين Coins تلقائيًا. الكود يُتحقق منه
+                                    عبر .</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 06 — اللغات والإعدادات
+══════════════════════════════════ -->
+            <div class="sec rv" id="s7">
+                <div class="sec-hd">
+                    <div class="sec-num">06 — تطبيق مأوى</div>
+                    <h2 class="sec-h2">اللغات <span class="c">والإعدادات</span></h2>
+                    <p class="sec-p">المنصة مبنية بثلاث لغات كاملة — التبديل فوري ويشمل كامل الواجهة.</p>
+                </div>
+
+                <div class="g3">
+                    <div class="card">
+                        <div class="ci" style="background:rgba(0,200,232,.09)">🇫🇷</div>
+                        <div class="ct">Français — الافتراضية</div>
+                        <div class="cb">اللغة الافتراضية. الواجهة تبدأ بها. اتجاه LTR.</div>
+                    </div>
+                    <div class="card">
+                        <div class="ci" style="background:rgba(0,217,126,.1)">🇩🇿</div>
+                        <div class="ct">العربية الجزائرية</div>
+                        <div class="cb">دعم كامل RTL — الواجهة تنعكس تلقائيًا. خط Noto Kufi Arabic. 287 مفتاح.</div>
+                    </div>
+                    <div class="card">
+                        <div class="ci" style="background:rgba(245,160,32,.1)">🇬🇧</div>
+                        <div class="ct">English</div>
+                        <div class="cb">اللغة الثالثة الكاملة. ترجمة شاملة لكل نصوص المنصة.</div>
+                    </div>
+                </div>
+
+                <div class="ibox" style="margin-top:13px">
+                    <div class="ib-h">كيف يُبدّل المستخدم اللغة؟</div>
+                    <div class="ib-p">
+                        من شاشة الإعدادات ← قسم المظهر واللغة ← اختيار اللغة → .
+                        التبديل فوري على كل الواجهة. الإعداد يُحفظ عبر localStorage ويُسترجع في كل زيارة.
+                    </div>
+                </div>
+                <div class="ibox warn" style="margin-top:9px">
+                    <div class="ib-h">🌙 الوضع الليلي</div>
+                    <div class="ib-p">من الإعدادات ← قسم المظهر ← مبدّل "Mode sombre". التغيير فوري. يُحفظ تلقائيًا.
+                        الوضعان (فاتح/داكن) مصمّمان بالكامل ولا يُعطّلان أي ميزة.</div>
+                </div>
+                <div class="ibox" style="margin-top:9px">
+                    <div class="ib-h">📲 بانر الإشعارات</div>
+                    <div class="ib-p">عند أول دخول يظهر بانر أسفل الشاشة يطلب الإذن بالإشعارات. يختفي بعد 5 ثوانٍ أو عند
+                        الضغط على رفض. يظهر مرة واحدة فقط لكل جلسة.</div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 07 — الدخول للAdmin والأدوار
+══════════════════════════════════ -->
+            <div class="sec rv" id="s8">
+                <div class="sec-hd">
+                    <div class="sec-num">07 — لوحة الإدارة</div>
+                    <h2 class="sec-h2">الدخول <span class="a">والأدوار</span></h2>
+                    <p class="sec-p">لوحة الإدارة تعمل بنظام صلاحيات ثلاثي — كل دور يرى ما يختص به فقط.</p>
+                </div>
+
+                <div class="g2" style="margin-bottom:20px">
+                    <div>
+                        <div class="sub-h">
+                            <div class="sub-ico" style="background:rgba(0,200,232,.1)">🔑</div>كيف تدخل للوحة؟
+                        </div>
+                        <div class="steps">
+                            <div class="step">
+                                <div class="sn">1</div>
+                                <div class="sb2">
+                                    <div class="st2">افتح indexadmin.html</div>
+                                    <div class="sd">يفتح مباشرةً على شاشة تسجيل الدخول في أي متصفح.</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">2</div>
+                                <div class="sb2">
+                                    <div class="st2">البريد + كلمة المرور</div>
+                                    <div class="sd">أدخل بيانات حسابك. واجهة الدخول تدعم عرض/إخفاء كلمة المرور.</div>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="sn">3</div>
+                                <div class="sb2">
+                                    <div class="st2">الدخول</div>
+                                    <div class="sd">يُطبّق الدور تلقائيًا — تظهر فقط الصفحات المسموح بها في الشريط
+                                        الجانبي.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mock">
+                        <div class="mb">
+                            <div class="md mdr"></div>
+                            <div class="md mdy"></div>
+                            <div class="md mdg"></div>
+                            <div class="murl">Maawa Admin — Connexion</div>
+                        </div>
+                        <div class="mc">
+                            <div class="msr">
+                                <div class="ms" style="grid-column:span 2">
+                                    <div class="msv" style="font-size:.85rem">47,218</div>
+                                    <div class="msl">مستخدم</div>
+                                </div>
+                                <div class="ms" style="grid-column:span 2">
+                                    <div class="msv" style="font-size:.85rem">3,841</div>
+                                    <div class="msl">حرفي</div>
+                                </div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav"
+                                    style="background:rgba(139,108,240,.3);font-size:.62rem;font-family:var(--mo)">SA
+                                </div>
+                                <div>
+                                    <div class="mn">Super Admin</div>
+                                    <div class="ms2">18 صفحة — كامل الصلاحيات</div>
+                                </div>
+                                <div class="mbdg ba">🔐 كامل</div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav"
+                                    style="background:rgba(0,200,232,.25);font-size:.62rem;font-family:var(--mo)">MG
+                                </div>
+                                <div>
+                                    <div class="mn">Manager Admin</div>
+                                    <div class="ms2">12 صفحة</div>
+                                </div>
+                                <div class="mbdg bb">🛡️ جزئي</div>
+                            </div>
+                            <div class="mr">
+                                <div class="mav"
+                                    style="background:rgba(245,160,32,.25);font-size:.62rem;font-family:var(--mo)">OP
+                                </div>
+                                <div>
+                                    <div class="mn">Ops Admin</div>
+                                    <div class="ms2">7 صفحات</div>
+                                </div>
+                                <div class="mbdg ba">⚙️ تشغيل</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rgrid">
+                    <div class="rc rsa">
+                        <div class="ricon">🔐</div>
+                        <div class="rname" style="color:#b09aff">Super Admin</div>
+                        <ul class="rl">
+                            <li>كل الصفحات (18 صفحة)</li>
+                            <li>إعدادات المنصة الشاملة</li>
+                            <li>المالية والـ SafePay</li>
+                            <li>إنشاء/حذف الإداريين</li>
+                            <li>إدارة الإشهار والـ Ads</li>
+                            <li>Heatmap الولايات</li>
+                            <li>فئات الخدمات والتطبيقات</li>
+                        </ul>
+                    </div>
+                    <div class="rc rmg">
+                        <div class="ricon">🛡️</div>
+                        <div class="rname" style="color:var(--c)">Manager Admin</div>
+                        <ul class="rl">
+                            <li>Dashboard والـ Analytics</li>
+                            <li>إدارة المستخدمين والحرفيين</li>
+                            <li>التحقق من الهوية NIN</li>
+                            <li>المهام والحجوزات</li>
+                            <li>إشراف المحتوى والبث</li>
+                            <li>الفئات والتطبيقات</li>
+                            <li>إدارة الإشهار</li>
+                        </ul>
+                    </div>
+                    <div class="rc rop">
+                        <div class="ricon">⚙️</div>
+                        <div class="rname" style="color:var(--am2)">Ops Admin</div>
+                        <ul class="rl">
+                            <li>Dashboard فقط</li>
+                            <li>التحقق من الهوية NIN</li>
+                            <li>المهام والحجوزات</li>
+                            <li>طلبات الانضمام</li>
+                            <li>إدارة النزاعات</li>
+                            <li>سجل المراجعة Audit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 08 — كل صفحة Admin
+══════════════════════════════════ -->
+            <div class="sec rv" id="s9">
+                <div class="sec-hd">
+                    <div class="sec-num">08 — لوحة الإدارة</div>
+                    <h2 class="sec-h2">كل صفحة وكيف <span class="c">تستخدمها</span></h2>
+                    <p class="sec-p">اضغط على أي صفحة لتقرأ شرح خطوة بخطوة لكيفية استخدامها.</p>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📊</div>
+                        <div class="acc-tit">Dashboard — نظرة عامة لحظية</div>
+                        <div class="acc-role"><span class="tag tz">كل الأدوار</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            أول صفحة عند الدخول. تُظهر حالة المنصة الآن.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>بطاقات KPI:</strong> إجمالي الإيرادات، المهام النشطة،
+                                        المستخدمون الإجماليون، Coins المتداولة. كل بطاقة تعرض مقارنة بالشهر الماضي.
+                                    </div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تنبيهات SLA:</strong> NIN لم يُعالَج خلال 48 ساعة = تنبيه
+                                        أحمر. نزاع مفتوح +72 ساعة = برتقالي. SafePay محجوز +7 أيام = أزرق. كل تنبيه
+                                        يأخذك مباشرةً للصفحة المعنية.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>النشاط اللحظي:</strong> تدفق حيّ لآخر الأحداث (تسجيلات،
+                                        حجوزات، دفعات). مفيد للمناوبة الليلية.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>الرسوم البيانية:</strong> رسم المستخدمين الجدد شهريًا ورسم
+                                        الإيرادات — مولّدان بـ .</div>
+                                </div>
+                            </div>
+                            <div class="tags"><span class="tag tc">إيرادات لحظية</span><span class="tag tg">مهام
+                                    نشطة</span><span class="tag tr">تنبيهات SLA</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📈</div>
+                        <div class="acc-tit">Analytics — الإحصائيات والتحليل</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            صفحة التحليل العميق لأداء المنصة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>نمو المستخدمين:</strong> رسم بياني 12 شهرًا. زرّ "Exporter
+                                        PDF" لتحميل التقرير.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>الإيرادات الشهرية:</strong> رسم 12 شهرًا بالدينار الجزائري.
+                                    </div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>قمع التحويل (Funnel):</strong> زيارات → تسجيل → طلب → مهمة
+                                        مطلقة → مهمة مكتملة. يُظهر أين يتسرّب المستخدمون.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>توزيع المهن (Donut Chart):</strong> نسبة كل مهنة من إجمالي
+                                        المهام. يُحدّد الخدمات الأكثر طلبًا.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">5</div>
+                                    <div class="ast"><strong>Top 5 الولايات + Top 5 الحرفيين:</strong> جداول الأفضل
+                                        أداءً.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">👥</div>
+                        <div class="acc-tit">إدارة المستخدمين</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            جدول كامل بكل مستخدمي المنصة مع أدوات قوية.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>التبويبات:</strong> الكل / عملاء / حرفيون / معلّقون. اختر
+                                        التبويب لفلتر سريع.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>البحث والفلتر:</strong> ابحث باسم المستخدم أو #ID. فلتر
+                                        الولاية والحالة من القوائم المنسدلة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>فتح الملف :</strong> زرّ 🔍 يفتح نافذة الكاملة — المهام،
+                                        التقييمات، سجل الدفع، وثائق التحقق. أزرار: تعليق / حذف / أداء.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>الإجراءات الجماعية :</strong> حدد عدة مستخدمين بالـ
+                                        checkboxes → ظهر شريط: تعليق / إشعار / تصدير CSV.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">5</div>
+                                    <div class="ast"><strong>تصدير :</strong> يُنزّل ملف CSV بقائمة المستخدمين المفلترة
+                                        جاهزة لـ Excel.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NIN -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">🪪</div>
+                        <div class="acc-tit">التحقق من الهوية NIN</div>
+                        <div class="acc-role"><span class="tag tz">كل الأدوار</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            كل حرفي جديد يُقدّم وثائقه هنا قبل ظهوره للعملاء.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>قائمة الانتظار:</strong> الطلبات من الأقدم. كل طلب يعرض
+                                        نسبة كشف الاحتيال بالذكاء الاصطناعي (0–100%) وعلامة حمراء إن تجاوز 48 ساعة
+                                        (SLA).</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>فتح الدوسيه :</strong> نافذة — صورة بطاقة الهوية (وجه +
+                                        ظهر)، صورة سيلفي، نسبة تطابق الوجه، درجة الاحتيال.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>✓ موافقة :</strong> يمنح الحرفي شارة "✓ Vérifié NIN"
+                                        وتُرسَل له رسالة SMS.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>✗ رفض :</strong> نافذة لاختيار سبب الرفض (وثائق غير واضحة /
+                                        مشبوه / ناقص). إشعار تلقائي للحرفي.</div>
+                                </div>
+                            </div>
+                            <div class="tags"><span class="tag tr">SLA: 48 ساعة</span><span class="tag tg">موافقة →
+                                    شارة</span><span class="tag tc">كشف بالذكاء الاصطناعي</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Missions -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📋</div>
+                        <div class="acc-tit">إدارة المهام</div>
+                        <div class="acc-role"><span class="tag tz">SA + Manager + Ops</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            متابعة كل المهام النشطة والمكتملة والمعلّقة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>التبويبات:</strong> نشطة / جديدة / في تنفيذ / مكتملة /
+                                        ملغاة. كل تبويب يعرض عدده.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>فتح التفاصيل :</strong> نافذة — العميل، الحرفي، الخدمة،
+                                        الموقع، الحالة الزمنية الكاملة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>إعادة التعيين :</strong> نافذة لاختيار حرفي بديل. بعد
+                                        التأكيد يُشعَر الطرفان تلقائيًا.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>إغلاق قسري:</strong> "Forcer fin" يُغلق المهمة ويبدأ إجراء
+                                        الاسترداد إن لزم.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finance -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">💰</div>
+                        <div class="acc-tit">المالية وإدارة SafePay</div>
+                        <div class="acc-role"><span class="tag tp">Super Admin فقط</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            التحكم الكامل في التدفقات المالية للمنصة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>SafePay المحجوز:</strong> إجمالي الأموال في الضمان لحظيًا.
+                                        لكل عملية: "Libérer" يُحرّر المبلغ للحرفي. "Reporter" يؤجّل التحرير.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>طلبات سحب الحرفيين:</strong> "Approuver" يفتح نافذة عبر —
+                                        الاسم، المبلغ، الطريقة، تأكيد = تحويل.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>عمليات Maawa Coins:</strong> سجل شحن وصرف وتحويل الـ Coins.
+                                        تنزيل إيصال لأي عملية.</div>
+                                </div>
+                            </div>
+                            <div class="tags"><span class="tag tp">SA حصريًا</span><span class="tag tg">تأكيد
+                                    مزدوج</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disputes -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">⚖️</div>
+                        <div class="acc-tit">النزاعات والوساطة</div>
+                        <div class="acc-role"><span class="tag tz">SA + Manager + Ops</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            إدارة الخلافات بين العملاء والحرفيين — المشرف يتدخل كحَكَم.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>فتح النزاع :</strong> نافذة — موقف العميل، موقف الحرفي،
+                                        الصور والأدلة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تعديل المبلغ:</strong> — حدّد نسبة التقسيم يدويًا بين
+                                        الطرفين.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>القرارات المتاحة:</strong> <span class="tag tr">رد كامل
+                                            للعميل</span> <span class="tag tg">دفع كامل للحرفي</span> <span
+                                            class="tag ta">تقسيم مخصص</span> <span class="tag tp">تصعيد قانوني</span> —
+                                        القرار نهائي ويُشعَر به الطرفان.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Moderation -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">🛡️</div>
+                        <div class="acc-tit">إشراف على المحتوى</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            مراجعة المنشورات والـ Reels والملفات الشخصية المُبلَّغ عنها.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>التبويبات:</strong> الكل / منشورات / Reels / ملفات. كل عنصر
+                                        يعرض: صاحبه، نوعه، تاريخ الإبلاغ، نسبة الذكاء الاصطناعي.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>"Voir" — معاينة:</strong> نافذة بمعاينة كاملة + أزرار:
+                                        تجاهل / تحذير / حذف / عرض الملف.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>"Bannir" — الحظر:</strong> نافذة — تختار سبب الحظر وتُضيف
+                                        ملاحظة داخلية. الحظر نهائي مع إشعار للمستخدم.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Broadcast -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📣</div>
+                        <div class="acc-tit">البث والإشعارات الجماعية</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            إرسال إشعارات جماعية لكل المستخدمين أو فئات محددة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>نوع البث :</strong> 3 خيارات — <span class="tag tc">Push —
+                                            إشعار هاتف</span> <span class="tag tg">SMS</span> <span
+                                            class="tag ta">Banner — داخل التطبيق</span></div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>الجمهور المستهدف:</strong> الكل / عملاء / حرفيون / مهام
+                                        نشطة / ولاية محددة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>"Prévisualiser" :</strong> نافذة — ترى الرسالة كما ستظهر
+                                        على الهاتف مع إحصاءات الوصول المتوقعة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>الجدولة:</strong> إرسال فوري أو جدولة لوقت محدد
+                                        "Planifier".</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📝</div>
+                        <div class="acc-tit">طلبات الانضمام كحرفي</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            طلبات الحرفيين الجدد للانضمام للمنصة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>كل طلب يعرض:</strong> الاسم، المهنة، الولاية، تاريخ
+                                        التقديم، درجة كشف الاحتيال.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>"Voir" → مراجعة الوثائق:</strong> نافذة . "Approuver" ينشئ
+                                        حساب الحرفي. "Rejeter" يختار السبب.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>إنشاء حساب حرفي مباشر :</strong> نافذة لإنشاء ملف حرفي يدوي
+                                        بالكامل دون انتظار طلب.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookings -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📅</div>
+                        <div class="acc-tit">الحجوزات</div>
+                        <div class="acc-role"><span class="tag tz">SA + Manager + Ops</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            إدارة كل الحجوزات المعلّقة والمؤكّدة.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>"Voir Détails" :</strong> نافذة بكل تفاصيل الحجز: العميل،
+                                        الحرفي، التاريخ، طريقة الدفع، الموقع.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>"Assigner" :</strong> تعيين حرفي يدويًا أو إعادة تعيين
+                                        بديل. التأكيد يُشعر الطرفين.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>تصدير :</strong> قائمة الحجوزات المفلترة بصيغة CSV.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ads -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">🎯</div>
+                        <div class="acc-tit">إدارة الإشهار — Ads</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            الإعلانات التي تظهر في Feed المستخدمين — تُدار هنا وتُزامَن تلقائيًا.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>إنشاء إعلان :</strong> نافذة — عنوان 3 لغات، emoji أو صورة
+                                        ، نص الزر، الرابط، الجمهور، مدة العرض.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تفعيل/إيقاف :</strong> زرّ فوري. الإعلانات المُفعّلة
+                                        تُزامَن مع منصة المستخدمين عبر localStorage في الوقت الفعلي.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>حذف :</strong> إزالة الإعلان فورًا من القائمة ومن
+                                        localStorage.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>الأداء:</strong> انطباعات + نقرات لكل إعلان — محدّثة في
+                                        الوقت الفعلي.</div>
+                                </div>
+                            </div>
+                            <div class="ibox" style="margin-top:11px">
+                                <div class="ib-h">🔗 التزامن التلقائي</div>
+                                <div class="ib-p">الإعلانات المُنشأة هنا تظهر في شاشة Feed في تطبيق مأوى للمستخدمين عبر
+                                    <strong>localStorage</strong>. المنصة تفحص كل 30 ثانية وتُحدّث الإعلانات — لا تحتاج
+                                    أي خطوة إضافية.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">⚙️</div>
+                        <div class="acc-tit">إعدادات المنصة الشاملة</div>
+                        <div class="acc-role"><span class="tag tp">Super Admin فقط</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            هنا تتحكّم في كل آلية عمل المنصة. الأهم من كل الصفحات.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>قواعد المنصة:</strong> مهام نشطة max لكل حرفي · مهلة قبول
+                                        الطلب (دقيقة) · رسوم الإلغاء (%) · حد أدنى الحجز المسبق (ساعة) · نافذة max الحجز
+                                        (يوم). كل قيمة تُحفظ بـ بعد زرّ ✓.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>المالية:</strong> Commission plateforme (%) · Taux Maawa
+                                        Coin (DZD/MC). تعديل هذه الأرقام ينعكس على كل الحسابات الجديدة فورًا.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>تفعيل/تعطيل الميزات:</strong> Reels · Stories · صفحات
+                                        Avant/Après · العرض العام · NIN الإلزامي. مبدّلات يمين/يسار تُفعّل أو تُعطّل كل
+                                        ميزة.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">4</div>
+                                    <div class="ast"><strong>وضع الصيانة :</strong> يُوقف المنصة أمام المستخدمين
+                                        العاديين ويُظهر صفحة "قيد الصيانة". المشرفون يدخلون بشكل طبيعي.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">5</div>
+                                    <div class="ast"><strong>بانر إعلاني عام:</strong> رسالة تظهر أعلى المنصة لكل
+                                        المستخدمين. 3 لغات منفصلة. مثلًا: "سنتوقف للصيانة يوم الجمعة".</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heatmap -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">🗺️</div>
+                        <div class="acc-tit">Heatmap — خريطة الولايات</div>
+                        <div class="acc-role"><span class="tag tp">Super Admin</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            خريطة حرارية لتوزيع المهام عبر 18 ولاية جزائرية — مبنية بـ .
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>الخريطة:</strong> 18 خلية ملوّنة — كلما كانت المهام أكثر
+                                        كان اللون أزرق أغمق. اضغط أي خلية لترى عدد المهام بالتفصيل.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>Top 10 الولايات:</strong> جانب الخريطة يعرض ترتيب الولايات
+                                        الأكثر نشاطًا مع أشرطة تقدّم.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>الفلتر بالشهر:</strong> غيّر الشهر لرؤية التطور عبر الزمن
+                                        واتخاذ قرارات التوسع الجغرافي.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">📄</div>
+                        <div class="acc-tit">سجل المراجعة — Audit Log</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            تاريخ كامل لا يمكن حذفه — كل إجراء قام به أي مشرف.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>الفلتر:</strong> حسب المشرف، نوع الإجراء (موافقة NIN /
+                                        تعليق حساب / تعديل إعداد...)، أو التاريخ.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تصدير :</strong> يُنزّل سجل CSV كامل — كل سطر: الوقت،
+                                        المشرف، الإجراء، عنوان IP.</div>
+                                </div>
+                            </div>
+                            <div class="ibox warn" style="margin-top:10px">
+                                <div class="ib-h">⚠️ مهم جدًا</div>
+                                <div class="ib-p">استخدم سجل المراجعة للتحقق عند أي خلل أو لمعرفة مَن فعل ماذا ومتى. لا
+                                    يمكن لأي مشرف حذف السجل.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admins page -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">👤</div>
+                        <div class="acc-tit">إدارة حسابات المشرفين</div>
+                        <div class="acc-role"><span class="tag tp">Super Admin فقط</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            إضافة وإدارة حسابات الإداريين.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>إنشاء مشرف جديد :</strong> نافذة — أدخل الاسم، البريد، كلمة
+                                        المرور، واختر الدور (Manager / Ops).</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تعديل الصلاحيات :</strong> نافذة — تغيير الدور، مصفوفة
+                                        الصلاحيات ، تعليق الحساب.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>حذف مشرف:</strong> مع تأكيد. لا يمكن حذف Super Admin
+                                        الرئيسي.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="acc">
+                    <div class="acc-hd" onclick="ta(this)">
+                        <div class="acc-ico">🗂️</div>
+                        <div class="acc-tit">فئات الخدمات</div>
+                        <div class="acc-role"><span class="tag tp">SA + Manager</span></div>
+                        <div class="acc-arr">▾</div>
+                    </div>
+                    <div class="acc-bd">
+                        <div class="acc-ct">
+                            إضافة وتعديل وحذف فئات المهن المعروضة في التطبيق.
+                            <div class="asteps">
+                                <div class="astep">
+                                    <div class="asn">1</div>
+                                    <div class="ast"><strong>إضافة فئة:</strong> زرّ + يفتح نافذة — أدخل اسم الفئة (3
+                                        لغات)، الأيقونة، الحالة. يحفظ.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">2</div>
+                                    <div class="ast"><strong>تعديل فئة موجودة :</strong> نفس النافذة مع البيانات مملوءة
+                                        مسبقًا.</div>
+                                </div>
+                                <div class="astep">
+                                    <div class="asn">3</div>
+                                    <div class="ast"><strong>حذف فئة :</strong> مع تأكيد. الحذف يُخفي الفئة من التطبيق
+                                        فورًا.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 09 — النوافذ التفاعلية
+══════════════════════════════════ -->
+            <div class="sec rv" id="s10">
+                <div class="sec-hd">
+                    <div class="sec-num">09 — لوحة الإدارة</div>
+                    <h2 class="sec-h2">النوافذ التفاعلية <span class="c">(17 Modal)</span></h2>
+                    <p class="sec-p">قائمة بكل الـ Modals في لوحة الإدارة — اسمها، ما تفعله، وكيف تفتحها.</p>
+                </div>
+
+                <div class="tbl-wr">
+                    <table class="tbl">
+                        <thead>
+                            <tr>
+                                <th>اسم النافذة</th>
+                                <th>ما الذي تفعله</th>
+                                <th>كيف تفتحها</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>الملف الكامل للمستخدم: مهام، تقييمات، سجل دفع، وثائق، إجراءات</td>
+                                <td>زرّ 🔍 في جدول المستخدمين</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>وثائق التحقق من الهوية — صور البطاقة والسيلفي + موافقة/رفض</td>
+                                <td>زرّ "Voir Dossier" في صفحة NIN</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تفاصيل مهمة كاملة: طرفان، موقع، حالة زمنية</td>
+                                <td>زرّ "Détails" في صفحة المهام</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تفاصيل حجز: عميل، حرفي، وقت، طريقة دفع، موقع</td>
+                                <td>زرّ "Voir Détails" في الحجوزات</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تعيين أو إعادة تعيين حرفي لمهمة أو حجز</td>
+                                <td>زرّ "Assigner" أو "Réassigner"</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تفاصيل نزاع + أدلة + أزرار القرار النهائي</td>
+                                <td>زرّ "Voir Litige" في النزاعات</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>معاينة محتوى مُبلَّغ عنه + أزرار التصرف</td>
+                                <td>زرّ "Voir" في صفحة المحتوى</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تأكيد حظر مستخدم مع اختيار سبب وملاحظة داخلية</td>
+                                <td>زرّ "Bannir" في صفحة المحتوى</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>معاينة الإشعار على هاتف حقيقي + إحصاءات الوصول</td>
+                                <td>زرّ "Prévisualiser" في البث</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تأكيد صرف مبلغ لحرفي مع تفاصيل التحويل</td>
+                                <td>زرّ "Approuver" في المالية</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>إنشاء إعلان جديد ثلاثي اللغة مع emoji وجمهور</td>
+                                <td>زرّ "Créer" في صفحة Ads</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تقرير أداء حرفي: مهام، إيرادات، تقييم، نشاط شهري</td>
+                                <td>زرّ "Performance" في ملف المستخدم</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>رفض طلب انضمام حرفي مع اختيار سبب مُفصّل</td>
+                                <td>زرّ "Rejeter" في طلبات الانضمام</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>إنشاء حساب مشرف جديد مع تحديد الدور</td>
+                                <td>زرّ "Créer Admin" في صفحة الإداريين</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>تعديل دور ومصفوفة صلاحيات مشرف موجود</td>
+                                <td>زرّ "Gérer" في صفحة الإداريين</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>إضافة أو تعديل فئة خدمة بثلاث لغات</td>
+                                <td>زرّ + أو ✏️ في صفحة الفئات</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>إنشاء حساب حرفي يدوي كامل دون انتظار طلب</td>
+                                <td>زرّ "Créer Artisan" في طلبات الانضمام</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 10 — ميزات الواجهة
+══════════════════════════════════ -->
+            <div class="sec rv" id="s11">
+                <div class="sec-hd">
+                    <div class="sec-num">10 — لوحة الإدارة</div>
+                    <h2 class="sec-h2">ميزات <span class="a">الواجهة</span></h2>
+                    <p class="sec-p">ميزات مدمجة في لوحة الإدارة تُحسّن تجربة العمل اليومي.</p>
+                </div>
+
+                <div class="g2">
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(0,200,232,.09)">🌙</div>
+                        <div class="fb">
+                            <div class="ft">الوضع الليلي</div>
+                            <div class="fd">زرّ 🌙 في الشريط العلوي. يُبدّل بين الوضع الفاتح والداكن. الإعداد يُحفظ
+                                ويُسترجع في كل جلسة.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(0,200,232,.09)">🌐</div>
+                        <div class="fb">
+                            <div class="ft">تبديل اللغة</div>
+                            <div class="fd">أزرار FR/AR/EN في الشريط العلوي. التبديل للعربية يُفعّل RTL الكامل — الشريط
+                                الجانبي، الجداول، والنصوص تنعكس تلقائيًا.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(139,108,240,.1)">📱</div>
+                        <div class="fb">
+                            <div class="ft">تجاوب مع الهاتف</div>
+                            <div class="fd">الشريط الجانبي يختفي على الهاتف ويظهر بزرّ ☰. Overlay مُضاف للإغلاق عند
+                                الضغط خارجه.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(0,217,126,.1)">🔔</div>
+                        <div class="fb">
+                            <div class="ft">لوحة الإشعارات</div>
+                            <div class="fd">زرّ 🔔 في الشريط العلوي يفتح لوحة منزلقة بكل الإشعارات — NIN جديد، نزاع
+                                مفتوح، دفع انتظار. "Tout lire" يُعلّم الكل مقروءًا.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(245,160,32,.1)">📤</div>
+                        <div class="fb">
+                            <div class="ft">تصدير CSV في كل مكان</div>
+                            <div class="fd">زرّ "Exporter" موجود في: المستخدمين، المهام، الحجوزات، سجل المراجعة. يُنزّل
+                                ملف CSV مُفلتَر جاهز لـ Excel.</div>
+                        </div>
+                    </div>
+                    <div class="frow">
+                        <div class="fi" style="background:rgba(0,200,232,.09)">🔍</div>
+                        <div class="fb">
+                            <div class="ft">البحث في الشريط العلوي</div>
+                            <div class="fd">حقل البحث يبحث عبر المستخدمين، المهام، والحجوزات في آنٍ واحد.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divline"></div>
+
+            <!-- ══════════════════════════════════
+ 11 — FAQ
+══════════════════════════════════ -->
+            <div class="sec rv" id="s12">
+                <div class="sec-hd">
+                    <div class="sec-num">11 — الخاتمة</div>
+                    <h2 class="sec-h2">أسئلة <span class="c">شائعة</span></h2>
+                    <p class="sec-p">أكثر ما يُسأل عنه بعد الاطلاع على المنصة.</p>
+                </div>
+
+
+                <div class="faq">
+                    <div class="fq" onclick="tf(this)"><span>هل الإعلانات في تطبيق مأوى مرتبطة بلوحة الإدارة؟</span>
+                        <div class="farr">▾</div>
+                    </div>
+                    <div class="fa">نعم، عبر <strong>localStorage</strong>. أنشئ إعلانًا في Admin ← صفحة Ads ← فعّله،
+                        يُخزَّن تلقائيًا. تطبيق مأوى يفحص localStorage كل 30 ثانية ويُظهر الإعلانات الجديدة في الـ Feed.
+                        الشرط: الملفّان مفتوحان في نفس المتصفح.</div>
+                </div>
+                <div class="faq">
+                    <div class="fq" onclick="tf(this)"><span>كيف أُغيّر نسبة العمولة أو سعر صرف الـ Coins؟</span>
+                        <div class="farr">▾</div>
+                    </div>
+                    <div class="fa">Admin ← دخول بحساب <strong>Super Admin</strong> ← صفحة الإعدادات (Settings) ← قسم
+                        Finance & SafePay ← غيّر القيمة ← اضغط ✓. التغيير يُحفظ في localStorage فورًا. الافتراضي: عمولة
+                        12% · 1 Coin = 50 DZD.</div>
+                </div>
+                <div class="faq">
+                    <div class="fq" onclick="tf(this)"><span>ماذا يعني نظام الذكاء الاصطناعي في التحقق NIN؟</span>
+                        <div class="farr">▾</div>
+                    </div>
+                    <div class="fa">الـ Prototype الحالي يُحاكي نتيجة نموذج ذكاء اصطناعي (درجة 0-100) لكشف الاحتيال في
+                        وثائق الهوية. الدرجة مُولّدة عشوائيًا للعرض. في النسخة الإنتاجية تتصل بـ API حقيقي (مثل AWS
+                        Rekognition) لمقارنة صورة الوجه بصورة البطاقة الوطنية.</div>
+                </div>
+
+
+                <div class="faq">
+                    <div class="fq" onclick="tf(this)"><span>من أتواصل معه لأي إضافة أو تعديل؟</span>
+                        <div class="farr">▾</div>
+                    </div>
+                    <div class="fa">تواصل مع فريق <strong>ustal.dev</strong> مباشرةً. نحن على استعداد لإضافة ميزات
+                        جديدة، تعديل الواجهة، ربط قاعدة بيانات، أو تحويل المشروع لتطبيق موبايل iOS/Android.</div>
+                </div>
+
+                <div class="ibox ok" style="margin-top:20px">
+                    <div class="ib-h">🚀 شكرًا على ثقتك في ustal.dev</div>
+                    <div class="ib-p">
+                        هذه الوثيقة ملكك — احتفظ بها كمرجع دائم لفهم المنصة وإدارتها.
+                        نظام مأوى مبني بعناية ليكون سهل الاستخدام والتطوير.
+                        نحن هنا لأي سؤال أو تطوير مستقبلي.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="foot">
+                <div class="foot-l">مأوى Platform v2.0 · وثيقة تسليم المالك · 2026</div>
+                <a href="https://ustal.dev" target="_blank" class="foot-r">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    Developed by <span>ustal.dev</span>
+                </a>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        /* progress bar */
+        window.addEventListener('scroll', () => {
+            const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            document.getElementById('pgbar').style.transform = `scaleX(${p})`;
+            rv(); updTOC();
+        }, { passive: true });
+
+        /* reveal */
+        function rv() {
+            document.querySelectorAll('.rv:not(.on)').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight * .9) el.classList.add('on');
+            });
+        }
+        rv();
+
+        /* sidebar nav */
+        const ids = ['s0', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12'];
+        const items = document.querySelectorAll('.sb-item');
+        function updTOC() {
+            let cur = 0;
+            ids.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= window.innerHeight * .38) cur = i;
+            });
+            items.forEach((it, i) => it.classList.toggle('on', i === cur));
+        }
+        function go(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* accordion */
+        function ta(hd) {
+            const item = hd.closest('.acc');
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.acc.open').forEach(a => a.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        }
+
+        /* faq */
+        function tf(btn) {
+            const ans = btn.nextElementSibling;
+            const wasOn = btn.classList.contains('on');
+            document.querySelectorAll('.fq.on').forEach(q => { q.classList.remove('on'); q.nextElementSibling.classList.remove('on'); });
+            if (!wasOn) { btn.classList.add('on'); ans.classList.add('on'); }
+        }
+    </script>
+</body>
+
+</html>
